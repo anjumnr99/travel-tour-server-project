@@ -3,7 +3,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const cookieParser = require('cookie-parser');
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -79,12 +79,12 @@ async function run() {
       res.send(result);
     });
 
-
-
-
-
-
-
+    app.get('/packages/:id', async (req, res) => {
+      const ids = req.params.id;
+      const query = { _id: new ObjectId(ids) }
+      const result = await packageCollection.findOne(query)
+      res.send(result)
+    });
 
 
 
